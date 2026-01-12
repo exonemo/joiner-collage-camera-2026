@@ -32,6 +32,10 @@ As part of this project, since FY2023 the [Tokyo Photographic Art Museum](https:
 
 ## Project page
 
+You can experience Joiner on your smartphone from the page below!
+
+下のページからあなたのスマートフォンでJoinerを体験できます！
+
 [https://exonemo.com/joiner-2026/](https://exonemo.com/joiner-2026/)
 
 ## Installation
