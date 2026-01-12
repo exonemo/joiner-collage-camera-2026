@@ -22,9 +22,9 @@ For this project, as part of the [TOKYO Smart Culture Project](#about-tokyo-smar
 
 ## Project page
 
-You can experience Joiner on your smartphone from the page below!
+You can experience Joiner on your smartphone from the link below!
 
-下のページからあなたのスマートフォンでJoinerを体験できます！
+下のリンクからあなたのスマートフォンでJoinerを体験できます！
 
 [https://exonemo.com/joiner-2026/](https://exonemo.com/joiner-2026/)
 
