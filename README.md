@@ -2,7 +2,7 @@
 
 **2010/2026 / Digital Application / Collection of Tokyo Photographic Art Museum**
 
-![Joiner Banner](https://via.placeholder.com/800x200/000000/FFFFFF?text=Joiner+-+Collage+Camera)
+![Joiner Banner](images/JoinerTitle.png)
 
 ## About
 
