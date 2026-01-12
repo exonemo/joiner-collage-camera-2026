@@ -33,9 +33,11 @@ As part of this project, since FY2023 the [Tokyo Photographic Art Museum](https:
 
 ## Installation
 
-Place the entire source code under a web server directory and access `index.html` from your smartphone.
+Place the entire source code under a web server directory and access `index.html` from your smartphone's web browser.
+After that, we recommend adding it to your home screen with the following steps, which allows you to use it like a native app.
 
-ソース一式をWebサーバー配下に配置し、スマートフォンから `index.html` にアクセスしてください。
+ソース一式をWebサーバー配下に配置し、スマートフォンのWebブラウザから `index.html` にアクセスしてください。
+その後、以下の操作でホーム画面に追加するとネイティブアプリの様に使用できるのでおすすめです。
 
 ### Add to Home Screen (iOS)
 
