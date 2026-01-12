@@ -2,7 +2,7 @@
 
 <img src="assets/JoinerTitle.png" alt="Joiner Banner" width="400">
 
-## About
+## About Joiner
 
 **Joiner – Collage Camera** is a camera app conceived as an artwork: by tracing a finger across the screen, users can "crop" fragments of the landscape and generate collage photographs in real time, with the immediacy of drawing. By shooting with slight shifts in angle and time, or by combining distant places within a single frame, the app lets users create and share collages with endlessly varied results.
 
