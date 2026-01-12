@@ -2,7 +2,7 @@
 
 **2010/2026 / Digital Application / Collection of Tokyo Photographic Art Museum**
 
-![Joiner Banner](images/JoinerTitle.png)
+![Joiner Banner](assets/JoinerTitle.png)
 
 ## About
 
