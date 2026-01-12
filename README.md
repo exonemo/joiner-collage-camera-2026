@@ -16,7 +16,7 @@ The work was made as an homage to David Hockney's **Joiners**, a group of photo-
 
 In 2012, the [Tokyo Photographic Art Museum](https://topmuseum.jp/) acquired the work together with an iPhone 3GS on which the app was installed; over time, however, battery deterioration made it difficult to power on. 
 
-For this project, as part of the **[TOKYO Smart Culture Project](#about-tokyo-smart-culture-project)***, exonemo re-examined both the program and the original device, successfully carried out the migration, and open-sourced the code.
+For this project, as part of the [TOKYO Smart Culture Project](#about-tokyo-smart-culture-project), exonemo re-examined both the program and the original device, successfully carried out the migration, and open-sourced the code.
 
 2012年に[東京都写真美術館](https://topmuseum.jp/)へiPhone 3GSの実機とともに収蔵されたが、バッテリーの劣化により起動が困難な状態にあった。今回、[「TOKYOスマート・カルチャー・プロジェクト」](#about-tokyo-smart-culture-project)の一環で、エキソニモがプログラムと実機の再検証を行い、マイグレーションを実現し、ソースコードのオープン化を行った。
 
