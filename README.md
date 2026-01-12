@@ -20,7 +20,7 @@ For this project, as part of the **[TOKYO Smart Culture Project](https://www.rek
 
 2012年に[東京都写真美術館](https://topmuseum.jp/)へiPhone 3GSの実機とともに収蔵されたが、バッテリーの劣化により起動が困難な状態にあった。今回、[「TOKYOスマート・カルチャー・プロジェクト」](https://www.rekibun.or.jp/en-us/crossing/smartculture/)の一環で、エキソニモがプログラムと実機の再検証を行い、マイグレーションを実現し、ソースコードのオープン化を行った。
 
-## [TOKYO Smart Culture Project](https://www.rekibun.or.jp/en-us/crossing/smartculture/)
+## TOKYO Smart Culture Project
 
 The "[TOKYO Smart Culture Project](https://www.rekibun.or.jp/en-us/crossing/smartculture/)" is led by the Tokyo Metropolitan Government and the [Tokyo Photographic Art Museum](https://topmuseum.jp/), which is operated by the Tokyo Metropolitan Foundation for History and Culture. The project digitizes cultural resources held by Tokyo Metropolitan cultural institutions—including collection holdings and records related to exhibitions and performances—so they can be documented, preserved, and experienced in a range of formats.
 
