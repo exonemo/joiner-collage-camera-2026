@@ -97,12 +97,28 @@ As part of this project, since FY2023 the [Tokyo Photographic Art Museum](https:
 
 ## License
 
+This project is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+本プロジェクトは [クリエイティブ・コモンズ 表示-非営利-継承 4.0 国際ライセンス (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja) の下で公開されています。
+
+### Additional Terms / 追加条件
+
+- **Personal use** (running locally, learning, research, private modification) is permitted without restriction. However, **if you wish to exhibit a derivative work**, you must contact the [Tokyo Photographic Art Museum](https://topmuseum.jp/) and obtain permission in advance.
+- This license is primarily intended for **code reuse**. Exhibiting or curating this work as an artwork will be judged separately.
+
+---
+
+- **個人的利用**（ローカル環境での実行、学習・研究・私的改変）は問題ありません。ただし、**派生物を展示する場合**は、事前に[東京都写真美術館](https://topmuseum.jp/)に連絡し、許可を得てください。
+- 本ライセンスは主に**コードの再利用**を想定しています。作品としての展示・キュレーションは別途判断されます。
+
+---
+
 This project is open-sourced as part of the [TOKYO Smart Culture Project](https://www.rekibun.or.jp/en-us/crossing/smartculture/)'s mission to preserve and make accessible time-based media artworks for future generations.
 
 ### Copyright
 
 © 2010-2026 exonemo  
-© 2026 Tokyo Metropolitan Government / Tokyo Metropolitan Foundation for History and Culture
+© 2026 Tokyo Metropolitan Foundation for History and Culture
 
 ### Terms
 
