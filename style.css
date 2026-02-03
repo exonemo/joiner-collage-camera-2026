@@ -1,0 +1,906 @@
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Splash Screen */
+#splashScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+#splashImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Base styles */
+body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    background-color: #000;
+    color: #fff;
+    overflow: hidden;
+    height: 100vh;
+    /* Support for notch devices (iPhone X and later) */
+    height: 100dvh; /* Dynamic viewport height */
+    width: 100vw;
+    /* Lock screen orientation to portrait */
+    position: fixed;
+    transform-origin: center center;
+    /* Prevent user selection and context menu on mobile */
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    /* Prevent pull-to-refresh on mobile browsers */
+    overscroll-behavior: none;
+}
+
+/* Font Face - Futura */
+@font-face {
+    font-family: 'FuturaStdCondensed';
+    src: url('./assets/FuturaStdCondensed.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FuturaStdCondensed';
+    src: url('./assets/FuturaStdCondensedExtraBd.otf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Camera container - fullscreen display */
+#cameraContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Camera preview */
+#cameraPreview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #222;
+}
+
+/* Touch canvas - black background overlay for interaction */
+#touchCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: black; /* Hide camera preview */
+    cursor: crosshair;
+}
+
+/* Resize preview canvas */
+#resizePreview, .resize-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 15;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+#resizePreview.active, .resize-preview.active {
+    opacity: 1;
+}
+
+/* Control panel */
+#controlPanel {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 25px;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    flex-wrap: wrap;
+    max-width: 90vw;
+}
+
+#controlPanel.minimized {
+    opacity: 0;
+    transform: translateX(-50%) translateY(100px);
+    pointer-events: none;
+}
+
+.close-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 11;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+.minimized-panel {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.3s ease;
+}
+
+.minimized-panel.hidden {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+    pointer-events: none;
+}
+
+/* Corner Buttons */
+.corner-btn {
+    position: fixed;
+    width: clamp(28px, 7vw, 42px);
+    height: clamp(28px, 7vw, 42px);
+    border: none;
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    z-index: 100;
+    transition: transform 0.3s ease;
+    padding: 0;
+    filter: brightness(0) invert(1);
+    opacity: 1;
+    /* Remove tap highlight on mobile */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: none;
+}
+
+.corner-btn.instant-hide {
+    opacity: 0;
+    pointer-events: none;
+    transition: none;
+}
+
+.corner-btn.fade-in {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 1s ease;
+}
+
+.corner-btn:hover {
+    transform: scale(1.1);
+}
+
+.corner-btn:active {
+    transform: scale(0.95);
+}
+
+.corner-btn.bottom-left {
+    bottom: 15px;
+    left: 15px;
+    width: clamp(20px, 5vw, 30px);
+    height: clamp(20px, 5vw, 30px);
+    background-image: url('./assets/button-save.svg');
+}
+
+/* Expand hit area for bottom-left button */
+.corner-btn.bottom-left::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(60px, 15vw, 80px);
+    height: clamp(60px, 15vw, 80px);
+    z-index: -1;
+}
+
+.corner-btn.bottom-right {
+    bottom: 15px;
+    right: 15px;
+    background-image: url('./assets/button-i.svg');
+}
+
+/* Expand hit area for bottom-right button */
+.corner-btn.bottom-right::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(60px, 15vw, 80px);
+    height: clamp(60px, 15vw, 80px);
+    z-index: -1;
+}
+
+#expandBtn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+}
+
+#expandBtn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+.interval-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-width: 200px;
+}
+
+.interval-controls label {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.interval-controls input[type="range"] {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.interval-controls input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.interval-controls input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Button styles */
+button {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Remove tap highlight on mobile */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: none;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button:disabled {
+    background: #666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Specific button styles */
+#saveBtn {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+#saveBtn:hover {
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+#clearBtn {
+    background: linear-gradient(135deg, #f44336 0%, #da190b 100%);
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+}
+
+#clearBtn:hover {
+    box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
+}
+
+/* Status display */
+#statusDisplay {
+    font-size: 12px;
+    color: #ccc;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 15px;
+    min-width: 120px;
+    text-align: center;
+}
+
+/* Error display */
+#errorDisplay {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    background: rgba(244, 67, 54, 0.9);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 14px;
+    max-width: 80%;
+    text-align: center;
+    display: none;
+    animation: slideDown 0.3s ease;
+}
+
+#errorDisplay.show {
+    display: block;
+}
+
+/* Fullscreen style adjustments */
+body:fullscreen #controlPanel,
+body:-webkit-full-screen #controlPanel,
+body:-moz-full-screen #controlPanel {
+    bottom: 30px;
+}
+
+/* Loading animation */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes zoomOut {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Fade-in effect */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /* PWA safe area: extend modal to cover status bar area */
+    margin-top: calc(-1 * env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    font-family: 'FuturaStdCondensed', -apple-system, BlinkMacSystemFont, sans-serif;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.modal.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: slideUp 0.3s ease-out forwards;
+}
+
+.modal.hide {
+    animation: slideDown 0.3s ease-out forwards;
+}
+
+/* Help Modal specific animations */
+#helpModal {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#helpModal.show {
+    animation: zoomIn 0.4s ease-out forwards;
+}
+
+#helpModal.hide {
+    animation: zoomOut 0.4s ease-out forwards;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    height: 90vh;
+    max-height: 800px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.modal-text {
+    flex: 1;
+    overflow-y: auto;
+    padding: clamp(40px, 5vw, 40px);
+    color: #ffffff;
+    font-size: clamp(20px, 5vw, 28px);
+    line-height: 1.8;
+    letter-spacing: 0.08em;
+    -webkit-overflow-scrolling: touch;
+    font-family: 'FuturaStdCondensed', -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-text h2 {
+    font-size: clamp(42px, 9vw, 56px);
+    margin-bottom: 0;
+    color: #ffffff;
+    letter-spacing: 0.03em;
+    font-family: 'FuturaStdCondensed', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1em;
+    
+}
+
+.modal-text h3 {
+    font-size: clamp(28px, 7vw, 38px);
+    /* margin-top: clamp(20px, 5vw, 32px); */
+    margin-bottom: clamp(12px, 3vw, 16px);
+    color: #ffffff;
+    letter-spacing: 0.1em;
+    font-family: 'FuturaStdCondensed', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: normal;
+}
+
+.modal-text p {
+    margin-bottom: clamp(12px, 3vw, 16px);
+    letter-spacing: 0.05em;
+    font-family: 'FuturaStdCondensed', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.modal-text ul {
+    margin-left: clamp(20px, 5vw, 30px);
+    margin-bottom: clamp(12px, 3vw, 16px);
+    font-family: 'FuturaStdCondensed', -apple-system, BlinkMacSystemFont, sans-serif;
+    list-style: none;
+    padding-left: 0;
+}
+
+.modal-text li {
+    margin-bottom: clamp(8px, 2vw, 12px);
+    font-family: 'FuturaStdCondensed', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding-left: clamp(25px, 6vw, 35px);
+    position: relative;
+    letter-spacing: 0.05em;
+}
+
+.modal-text li::before {
+    content: '■';
+    position: absolute;
+    left: 0;
+    color: #ffffff;
+}
+
+.modal-close-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: clamp(28px, 7vw, 42px);
+    height: clamp(28px, 7vw, 42px);
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 10;
+    box-shadow: none;
+    text-shadow: none;
+    outline: none;
+    /* Remove tap highlight on mobile */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.modal-close-btn::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: url('./assets/button-x.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: brightness(0) invert(1);
+}
+
+.modal-close-btn:hover {
+    transform: scale(1.1);
+    box-shadow: none;
+}
+
+.modal-close-btn:active {
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
+/* Settings Modal specific styles */
+#settingsModal {
+    background-color: transparent;
+    background-image: url('./assets/extendBG.png');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+.settings-modal-content {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    background: transparent;
+}
+
+.settings-close-btn {
+    left: 20px;
+    right: auto;
+}
+
+/* Settings Modal UI Components */
+.settings-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: clamp(30px, 8vw, 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(30px, 6vw, 50px);
+    overflow-y: auto;
+}
+
+/* ImageViewer - Top Right */
+.image-viewer-container {
+    position: absolute;
+    top: 0;
+    right: clamp(30px, 8vw, 60px);
+    z-index: 10;
+}
+
+.image-viewer {
+    width: clamp(80px, 20vw, 150px);
+    height: clamp(80px, 20vw, 150px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: clamp(4px, 1vw, 8px);
+    background-color: rgba(0, 0, 0, 0.3);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.settings-section {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(12px, 3vw, 20px);
+}
+
+/* Slide Switch */
+.slide-switch {
+    display: inline-flex;
+    width: fit-content;
+    background-color: rgba(180, 180, 180, 0.5);
+    border-radius: clamp(8px, 2vw, 12px);
+    padding: clamp(3px, 0.8vw, 5px);
+    gap: clamp(3px, 0.8vw, 5px);
+}
+
+.slide-option {
+    font-family: 'FuturaStdCondensed', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: clamp(10px, 2.5vw, 15px) clamp(25px, 6vw, 40px);
+    font-size: clamp(18px, 4vw, 26px);
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    color: #000000;
+    border: none;
+    border-radius: clamp(6px, 1.5vw, 10px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.03em;
+    font-weight: normal;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    transform: none !important;
+}
+
+.slide-option:hover {
+    color: #000000;
+    opacity: 0.8;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.slide-option.active {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(230, 230, 230, 0.95) 100%) !important;
+    background-color: transparent !important;
+    color: #000000;
+    font-weight: normal;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.settings-title {
+    font-family: 'FuturaStdCondensed', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: clamp(28px, 6vw, 42px);
+    font-weight: normal;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.05em;
+}
+
+.settings-btn-large {
+    font-family: 'FuturaStdCondensed', -apple-system, BlinkMacSystemFont, sans-serif;
+    width: 100%;
+    padding: clamp(15px, 4vw, 22px) clamp(20px, 5vw, 30px);
+    font-size: clamp(18px, 4vw, 26px);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(230, 230, 230, 0.95) 100%);
+    color: #000000;
+    border: none;
+    border-radius: clamp(8px, 2vw, 12px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.03em;
+    font-weight: normal;
+}
+
+.settings-btn-large:hover {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(240, 240, 240, 1) 100%);
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: clamp(60px, 15vw, 80px);
+    height: clamp(32px, 8vw, 44px);
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: 0.4s;
+    border-radius: clamp(32px, 8vw, 44px);
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: clamp(24px, 6vw, 36px);
+    width: clamp(24px, 6vw, 36px);
+    left: clamp(4px, 1vw, 4px);
+    bottom: clamp(4px, 1vw, 4px);
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #4cd964;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(clamp(28px, 7vw, 36px));
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    #controlPanel {
+        bottom: 10px;
+        padding: 12px 20px;
+        gap: 10px;
+    }
+    
+    button {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+    
+    #statusDisplay {
+        font-size: 11px;
+        padding: 6px 12px;
+        min-width: 100px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        height: 95vh;
+    }
+    
+    .modal-text {
+        padding-bottom: 80px; /* Space for close button */
+    }
+}
+
+/* Landscape phone support */
+@media (max-height: 500px) and (orientation: landscape) {
+    .modal-text h2 {
+        font-size: 32px;
+        margin-bottom: 12px;
+    }
+    
+    .modal-text h3 {
+        font-size: 24px;
+        margin-top: 16px;
+        margin-bottom: 8px;
+    }
+    
+    .modal-text {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+}
+
+/* PWA standalone mode - MUST be at end to override other styles */
+@media all and (display-mode: standalone) {
+    #cameraContainer {
+        bottom: 34px;
+    }
+    .modal {
+        top: 47px;
+        bottom: 34px;
+    }
+    .corner-btn.bottom-left,
+    .corner-btn.bottom-right {
+        bottom: 49px;
+    }
+}

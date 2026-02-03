@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Joiner - collage camera</title>
+    
+    <!-- PWA Settings for Fullscreen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Joiner">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- App Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512x512.png">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splashScreen">
+        <img src="assets/Default-new.svg" alt="Joiner" id="splashImage">
+    </div>
+    
+    <!-- Camera preview display area -->
+    <div id="cameraContainer">
+        <video id="cameraPreview" autoplay muted playsinline></video>
+        <canvas id="touchCanvas"></canvas>
+        <canvas id="resizePreview" class="resize-preview"></canvas>
+    </div>
+    
+    <!-- Control panel -->
+    <div id="controlPanel" class="minimized">
+        <button id="closeBtn" class="close-btn">×</button>
+        <button id="saveBtn">Save</button>
+        <button id="clearBtn">Clear</button>
+        <button id="switchCamBtn">Switch Cam</button>
+        <div class="interval-controls">
+            <label for="intervalSlider">Capture Interval (ms): <span id="intervalValue">150</span></label>
+            <input type="range" id="intervalSlider" min="50" max="1000" value="150" step="50">
+        </div>
+        <div id="statusDisplay">Please start camera</div>
+    </div>
+    
+    <!-- UI Buttons -->
+    <!-- Bottom Left: Save Button -->
+    <button id="saveIconBtn" class="corner-btn bottom-left"></button>
+
+    <!-- Bottom Right: Help Button -->
+    <button id="helpBtn" class="corner-btn bottom-right"></button>
+    
+    <!-- Minimized panel button (keeping for backward compatibility) -->
+    <div id="minimizedPanel" class="minimized-panel" style="display: none;">
+        <button id="expandBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+  <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+  <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+</svg></button>
+    </div>
+    
+    <!-- Error display area -->
+    <div id="errorDisplay"></div>
+    
+    <!-- HELP Modal -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-text">
+            <h2>Joiner</h2>
+            <h3>by exonemo</h3>
+
+            <h3>How to use</h3>
+            <p>■ <b>Touch and Slide</b> on the screen 
+                to make photo collage.</p>
+
+            <p>■ <b>Pinch</b> to resize the piece of photo.</p>
+
+            <p>■ <b>Shake</b> to clear the screen.</p>
+
+            <p>■ <b>Options</b> (left corner button) 
+                Change the source/Export the photo/
+                Sound On&Off</p>
+            </div>
+            
+        </div>
+        <button id="modalCloseBtn" class="modal-close-btn"></button>
+    </div>
+    
+    <!-- SETTINGS Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content settings-modal-content">
+            <div class="settings-container">
+                <!-- ImageViewer - Top Right -->
+                <div class="image-viewer-container">
+                    <div id="imageViewer" class="image-viewer"></div>
+                </div>
+
+                <!-- Source Section -->
+                <div class="settings-section">
+                    <h2 class="settings-title">Source</h2>
+                    <div class="slide-switch" id="sourceSwitch">
+                        <button class="slide-option active" data-value="camera" id="sourceCameraBtn">Camera</button>
+                        <button class="slide-option" data-value="album" id="sourceAlbumBtn">Album</button>
+                    </div>
+                    <!-- Hidden file input for album selection -->
+                    <input type="file" id="albumFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <!-- Camera Section -->
+                <div class="settings-section">
+                    <h2 class="settings-title">Camera</h2>
+                    <div class="slide-switch" id="cameraSwitch">
+                        <button class="slide-option" data-value="front" id="frontCameraBtn">Front</button>
+                        <button class="slide-option active" data-value="rear" id="rearCameraBtn">Rear</button>
+                    </div>
+                </div>
+
+                <!-- Export Section -->
+                <div class="settings-section">
+                    <h2 class="settings-title">Export</h2>
+                    <button id="shareBtn" class="settings-btn-large">Share to ...</button>
+                </div>
+
+                <!-- Browse Section -->
+                <!-- <div class="settings-section">
+                    <h2 class="settings-title">Browse</h2>
+                    <button class="settings-btn-large">Browse Shared Photos on Twitter</button>
+                </div> -->
+
+                <!-- Sound Section -->
+                <div class="settings-section">
+                    <h2 class="settings-title">Sound</h2>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="soundToggle" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <!-- Shake to Erase Section -->
+                <div class="settings-section">
+                    <h2 class="settings-title">Shake to Erase</h2>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="shakeToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <button id="settingsCloseBtn" class="modal-close-btn settings-close-btn"></button>
+    </div>
+    
+    <script src="script.js?v=20251113-12"></script>
+</body>
+</html>
